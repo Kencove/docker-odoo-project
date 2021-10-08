@@ -1,9 +1,12 @@
-NAME=camptocamp/odoo-project
+NAME=registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project
 ifndef VERSION
 $(error VERSION is not set)
 endif
+PY_VERSION=3.8
+# IMAGE=${NAME}:${VERSION}-${PY_VERSION}
+# IMAGE_LATEST=${IMAGE}-latest
 
-IMAGE=$(NAME):$(VERSION)
+IMAGE=$(NAME):$(VERSION)-$(PY_VERSION)
 IMAGE_LATEST=$(IMAGE)-latest
 
 export

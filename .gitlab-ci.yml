@@ -1,0 +1,35 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: none
+  GIT_DEPTH: "5"
+
+# docker push registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project
+
+build:
+  stage: build
+  tags:
+    - staging,cache
+  image: docker:20.10.9-dind-alpine3.14
+    #latest
+  services:
+    - docker:20.10.9-dind-alpine3.14
+  # variables:
+  #   DOCKER_HOST: tcp://docker:2376
+  before_script:
+    - apk add --update make gcc bash
+    - which gcc
+    - docker info
+  script:
+    # generate image registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project:14.0-latest and camptocamp/odoo-project:14.0-latest-onbuild
+    - |
+      if [[ -n "$CI_REGISTRY" && -n "$CI_REGISTRY_USER" ]]; then
+        echo "Logging in to GitLab Container Registry with CI credentials..."
+        echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+      fi
+
+    - make VERSION=14.0
+    - make VERSION=14.0 BATTERIES=True
+
+  rules:
+    - if: "$BUILD_DISABLED"
+      when: never
+    - if: "$CI_COMMIT_TAG || $CI_COMMIT_BRANCH"
