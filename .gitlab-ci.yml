@@ -1,6 +1,4 @@
-variables:
-  GIT_SUBMODULE_STRATEGY: none
-  GIT_DEPTH: "5"
+
 
 # docker push registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project
 
@@ -8,16 +6,24 @@ build:
   stage: build
   tags:
     - staging,cache
-  image: docker:20.10.9-dind-alpine3.14
-    #latest
+  image: docker:19.03.12
+
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    # DOCKER_HOST: tcp://docker:2376
+    # DOCKER_TLS_VERIFY: 1
+    # DOCKER_TLS_CERTDIR: "/certs"
+    # DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+
   services:
-    - docker:20.10.9-dind-alpine3.14
-  # variables:
-  #   DOCKER_HOST: tcp://docker:2376
+    - docker:19.03.12-dind
+
   before_script:
+    - docker info
     - apk add --update make gcc bash
     - which gcc
-    - docker info
   script:
     # generate image registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project:14.0-latest and camptocamp/odoo-project:14.0-latest-onbuild
     - |
