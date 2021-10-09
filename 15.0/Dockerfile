@@ -1,5 +1,5 @@
-ARG  PY_VERSION=3.7
-ARG  VERSION=14.0
+ARG  PY_VERSION=3.8
+ARG  VERSION=15.0
 FROM python:${PY_VERSION}-slim-buster 
 
 # create the working directory and a place to set the logs (if wanted)
@@ -15,7 +15,7 @@ ENV LANG=C.UTF-8 \
 
 # ARG ODOO_SOURCE=OCA/OCB
 ARG ODOO_SOURCE=odoo/odoo
-ENV ODOO_VERSION="${VERSION:-14.0}"
+ENV ODOO_VERSION="${VERSION:-15.0}"
 
 # build and dev packages
 ENV BUILD_PACKAGE \
