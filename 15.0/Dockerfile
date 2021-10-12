@@ -1,6 +1,7 @@
 ARG  PY_VERSION=3.8
 ARG  VERSION=15.0
-FROM python:${PY_VERSION}-slim-buster 
+ARG  OS=buster
+FROM python:${PY_VERSION}-slim-${OS}
 
 # create the working directory and a place to set the logs (if wanted)
 RUN mkdir -p /odoo /var/log/odoo
@@ -35,7 +36,8 @@ ENV BUILD_PACKAGE \
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
-        sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \
+        STR="deb http://apt.postgresql.org/pub/repos/apt/ ${OS}-pgdg main" \
+        && sh -c "echo ${STR} > /etc/apt/sources.list.d/pgdg.list" \
         && sh -c /install/package_odoo_13.0_15.0.sh \
         && /install/setup-pip.sh \
         && /install/postgres.sh \

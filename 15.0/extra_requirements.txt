@@ -43,6 +43,11 @@ tzlocal==1.5.1
 Unidecode==1.0.22
 yarl==1.2.6
 
+pystan~=2.14
+pandas>=0.23.4
+
+fbprophet~=0.5
+
 # cffi==1.11.5
 # magento==3.0
 # suds-jurko==0.6
