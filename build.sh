@@ -14,6 +14,9 @@ set -euxo pipefail
 # * IMAGE_LATEST (tag of the 'latest' image built)
 # * DOCKERFILE (name of the file used for the Docker build)
 #
+echo VERSION=$VERSION
+echo IMAGE_LATEST=$IMAGE_LATEST
+# echo DOCKERFILE=$DOCKERFILE
 
 if [ -z "$VERSION" ]; then
     echo "VERSION environment variable is missing"
@@ -32,16 +35,16 @@ on_exit() {
 trap on_exit EXIT
 
 cp -r ${VERSION}/. ${TMP}/
-cp -r bin/ ${TMP}
-cp -rT common/ ${TMP}
-cp ${TMP}/Dockerfile-onbuild ${TMP}/Dockerfile-batteries-onbuild
-sed -i "1i FROM ${IMAGE_LATEST}" ${TMP}/Dockerfile-onbuild
-sed -i "1i FROM ${IMAGE_LATEST}" ${TMP}/Dockerfile-batteries
-sed -i "1i FROM ${IMAGE_LATEST}-batteries" ${TMP}/Dockerfile-batteries-onbuild
-cp -r install/ ${TMP}
-cp -r install-extra/ ${TMP}
-cp -r start-entrypoint.d/ ${TMP}
-cp -r before-migrate-entrypoint.d/ ${TMP}
+cp -r bin ${TMP}
+cp -r common ${TMP}
+# cp ${TMP}/Dockerfile-onbuild ${TMP}/Dockerfile-batteries-onbuild
+# sed -i "1i FROM ${IMAGE_LATEST}" ${TMP}/Dockerfile-onbuild
+# sed -i "1i FROM ${IMAGE_LATEST}" ${TMP}/Dockerfile-batteries
+# sed -i "1i FROM ${IMAGE_LATEST}-batteries" ${TMP}/Dockerfile-batteries-onbuild
+cp -r install ${TMP}
+cp -r install-extra ${TMP}
+cp -r start-entrypoint.d ${TMP}
+cp -r before-migrate-entrypoint.d ${TMP}
 
 docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" -f ${TMP}/Dockerfile -t ${IMAGE_LATEST} ${TMP}
 # docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" -f ${TMP}/Dockerfile-onbuild -t ${IMAGE_LATEST}-onbuild ${TMP}

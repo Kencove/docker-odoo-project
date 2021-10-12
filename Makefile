@@ -1,4 +1,5 @@
-NAME=${CI_REGISTRY_IMAGE}
+# NAME=${CI_REGISTRY_IMAGE:-registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project}
+NAME=registry.gitlab.com/kencove/odoo/outside-projects/docker-odoo-project
 ifndef VERSION
 $(error VERSION is not set)
 endif
