@@ -26,7 +26,6 @@ vcrpy==1.12.0
 asn1crypto==0.24.0
 bcrypt==3.1.4
 botocore==1.10.40
-cffi==1.11.5
 cryptography==2.3.0
 dateparser==0.7.0
 idna==2.7
@@ -44,5 +43,7 @@ tzlocal==1.5.1
 Unidecode==1.0.22
 yarl==1.2.6
 
-#suds-jurko==0.6
-#magento==3.0
+
+# cffi==1.11.5
+# magento==3.0
+# suds-jurko==0.6
