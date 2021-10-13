@@ -16,7 +16,6 @@ apt-get install -y --no-install-recommends \
     node-less \
     poppler-utils \
     python3 \
-    python-libxslt1 \
     python3-pip \
     python3-setuptools \
     python3-renderpm \
@@ -25,3 +24,6 @@ apt-get install -y --no-install-recommends \
     xfonts-base \
     xz-utils \
     tcl expect
+
+    # python-libxslt1 \
+    

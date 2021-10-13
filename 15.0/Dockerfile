@@ -21,31 +21,39 @@ ENV ODOO_VERSION="${VERSION:-15.0}"
 # build and dev packages
 ENV BUILD_PACKAGE \
     build-essential \
+    curl \
     gcc \
     libevent-dev \
     libfreetype6-dev \
+    libjpeg-dev \
+    libldap2-dev \
+    libpng-dev \
+    libpq-dev \
+    libsasl2-dev \
     libxml2-dev \
     libxslt1-dev \
-    libsasl2-dev \
-    libldap2-dev \
-    libssl-dev \
-    libjpeg-dev \
-    libpng-dev \
     zlib1g-dev \
     git
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
-RUN set -x; \
-        STR="deb http://apt.postgresql.org/pub/repos/apt/ ${OS}-pgdg main" \
-        && sh -c "echo ${STR} > /etc/apt/sources.list.d/pgdg.list" \
+RUN set -x \
         && sh -c /install/package_odoo_13.0_15.0.sh \
         && /install/setup-pip.sh \
-        && /install/postgres.sh \
         && /install/wkhtml_12_5_1.sh \
         && /install/dev_package.sh \
         && python3 -m pip install --force-reinstall pip setuptools \
-        && pip install -r /odoo/base_requirements.txt --ignore-installed \
-        && /install/purge_dev_package_and_cache.sh
+        && pip install -r /odoo/base_requirements.txt --ignore-installed 
+        # \
+        # && /install/purge_dev_package_and_cache.sh
+
+ARG OS=buster
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ ${OS}-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+    && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+    && apt-get update \
+    && apt-get install --no-install-recommends -y \
+      postgresql-client-14 \
+      && apt-get clean all \
+      && rm -rf /var/lib/apt/lists/*
 
 # grab gosu for easy step-down from root and dockerize to generate template and
 # wait on postgres
