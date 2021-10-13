@@ -44,6 +44,6 @@ cp -r start-entrypoint.d/ ${TMP}
 cp -r before-migrate-entrypoint.d/ ${TMP}
 
 docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" --build-arg OS="$OS" -f ${TMP}/Dockerfile -t ${IMAGE_LATEST} ${TMP}
-# docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" -f ${TMP}/Dockerfile-onbuild -t ${IMAGE_LATEST}-onbuild ${TMP}
+docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" --build-arg OS="$OS" -f ${TMP}/Dockerfile-onbuild -t ${IMAGE_LATEST}-onbuild ${TMP}
 docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" --build-arg OS="$OS" -f ${TMP}/Dockerfile-batteries -t ${IMAGE_LATEST}-batteries ${TMP}
-# docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" -f ${TMP}/Dockerfile-batteries-onbuild -t ${IMAGE_LATEST}-batteries-onbuild ${TMP}
+docker build --no-cache --build-arg PY_VERSION="$PY_VERSION" --build-arg VERSION="$VERSION" --build-arg OS="$OS" -f ${TMP}/Dockerfile-batteries-onbuild -t ${IMAGE_LATEST}-batteries-onbuild ${TMP}

@@ -44,7 +44,7 @@ pydot==1.4.1
 python-ldap==3.1.0; sys_platform != 'win32'
 PyPDF2==1.26.0
 pyserial==3.4
-python-dateutil==2.7.3
+# python-dateutil==2.7.3
 pytz==2019.1
 pyusb==1.0.2
 qrcode==6.1
@@ -103,3 +103,19 @@ pycodestyle==2.5.0
 pyflakes==2.1.1
 unicodecsv==0.14.1
 wrapt==1.10.11
+
+# Forecast (fbprophet) phase 1 (from requirements.txt)
+cmdstanpy==0.9.77
+convertdate>=2.1.2
+Cython>=0.22
+holidays>=0.11.3.1
+LunarCalendar>=0.0.9
+matplotlib>=2.0.0
+numpy>=1.15.4
+pandas>=1.0.4
+pystan~=2.19.1.1
+python-dateutil>=2.8.0
+setuptools-git>=1.2
+setuptools>=42
+tqdm>=4.36.1
+wheel>=0.37.0
