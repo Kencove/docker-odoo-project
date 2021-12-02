@@ -20,6 +20,4 @@ RUN set -x; \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN set -x; /bin/bash /install/install-code-server-*.sh
-
 WORKDIR "/"

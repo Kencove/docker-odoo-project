@@ -2,7 +2,7 @@
 set -x
 curl -fsSL https://code-server.dev/install.sh -o /tmp/install.sh && chmod +x /tmp/install.sh
 mkdir -p /opt/coder/{user-data,extensions}
-/bin/bash /tmp/install.sh --prefix=/opt/coder --method standalone
+/bin/bash /tmp/install.sh --prefix=/opt/coder --method standalone --version 3.11.1
 cat > /opt/coder/config.yaml << EOL
 bind-addr: 0.0.0.0:8443
 auth: password
